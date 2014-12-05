@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="block_queue.h" />
     <ClInclude Include="dll_library.h" />
     <ClInclude Include="pipeIO.h" />
   </ItemGroup>

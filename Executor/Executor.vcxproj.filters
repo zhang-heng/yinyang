@@ -21,6 +21,9 @@
     <ClInclude Include="dll_library.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="block_queue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pipeIO.cpp">
