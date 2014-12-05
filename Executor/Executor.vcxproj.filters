@@ -24,6 +24,12 @@
     <ClInclude Include="block_queue.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="dll_function.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="fun_arg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pipeIO.cpp">
@@ -33,6 +39,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="dll_library.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dll_function.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="fun_arg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

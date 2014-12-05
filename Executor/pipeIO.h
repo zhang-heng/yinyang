@@ -30,4 +30,5 @@ namespace yinyang
 	};
 
 	extern block_queue<byte_buffer> _send_queue;
+	extern block_queue<byte_buffer> _recv_queue;
 }
