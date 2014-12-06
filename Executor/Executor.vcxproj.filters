@@ -30,6 +30,9 @@
     <ClInclude Include="fun_arg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="function_handler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pipeIO.cpp">
@@ -45,6 +48,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="fun_arg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="function_handler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

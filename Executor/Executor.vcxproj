@@ -79,12 +79,14 @@
     <ClInclude Include="block_queue.h" />
     <ClInclude Include="dll_library.h" />
     <ClInclude Include="dll_function.h" />
+    <ClInclude Include="function_handler.h" />
     <ClInclude Include="fun_arg.h" />
     <ClInclude Include="pipeIO.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dll_library.cpp" />
     <ClCompile Include="dll_function.cpp" />
+    <ClCompile Include="function_handler.cpp" />
     <ClCompile Include="fun_arg.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pipeIO.cpp" />
