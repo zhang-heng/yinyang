@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <thread>
+#include <map>
 
 using namespace std;
 using namespace yinyang;
@@ -86,7 +87,16 @@ int mainx(int argc, char *argv[])
 	return 0;
 }
 
+typedef string (*cb0)();
+#define FUN0 []()->string{ return __FUNCTION__;}
 int main()
 {
+	std::map<string, cb0> _cb_0;
+	cb0 _cb0[] = {FUN0,FUN0,FUN0,FUN0};
+	for(auto i = begin(_cb0); i != end(_cb0); i++)
+	{
+		_cb_0.insert(pair<string, cb0>((*i)(),*i));
+	}
 	return 0;
 }
+
