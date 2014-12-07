@@ -105,6 +105,7 @@ namespace yinyang{
 	// Class:    callback_arg 
 	//************************************
 	callback_arg::callback_arg(vector<vector<char>> args)
+		: _callback(nullptr)
 	{
 
 	}

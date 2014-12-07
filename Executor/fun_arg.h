@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "callback_function.h"
 
 namespace yinyang{
 	class fun_arg
@@ -35,6 +36,7 @@ namespace yinyang{
 		char* _refer_buffer;
 	};
 
+#include "callback_function.h"
 	class callback_arg :public fun_arg
 	{
 	public:
@@ -43,6 +45,6 @@ namespace yinyang{
 		static fun_arg * gen_new_arg(std::vector<std::vector<char>> args);
 	private:
 		callback_arg(std::vector<std::vector<char>> args);
-		std::vector<fun_arg> _args;
+		callback_function *_callback;
 	};
 }
