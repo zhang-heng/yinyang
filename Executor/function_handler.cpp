@@ -1,18 +1,9 @@
 #include "function_handler.h"
+#include "callback_function.h"
 
 namespace yinyang{
 	using namespace std;
 
-	typedef long (*__fun0)();
-	typedef long (*__fun1)(long __1);
-	typedef long (*__fun2)(long __1, long __2);
-	typedef long (*__fun3)(long __1, long __2, long __3);
-	typedef long (*__fun4)(long __1, long __2, long __3, long __4); 
-	typedef long (*__fun5)(long __1, long __2, long __3, long __4, long __5); 
-	typedef long (*__fun6)(long __1, long __2, long __3, long __4, long __5, long __6); 
-	typedef long (*__fun7)(long __1, long __2, long __3, long __4, long __5, long __6, long __7); 
-	typedef long (*__fun8)(long __1, long __2, long __3, long __4, long __5, long __6, long __7, long __8); 
-	typedef long (*__fun9)(long __1, long __2, long __3, long __4, long __5, long __6, long __7, long __8, long __9);  
 
 	function_handler::function_handler(int h, vector<fun_arg> args) 
 		:_handle(h), _args(args)

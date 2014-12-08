@@ -4,6 +4,8 @@
 #include "fun_arg.h"
 
 namespace yinyang{
+
+
 	class function_handler
 	{
 	public:

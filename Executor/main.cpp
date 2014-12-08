@@ -1,35 +1,45 @@
 #include <windows.h>
+
 #include "pipeIO.h"
+#include "callback_function.h"
 
 #include <iostream>
 #include <thread>
 #include <map>
 
+
 using namespace std;
 using namespace yinyang;
-/*
-req_id=123          //请求编号
-func_name=do        //函数名
-arg_1=0             //参数值类型
-arg_2=100*          //参数引用类型
-<bytes 100>         //引用类型的块
-arg_3=cb$           //参数是回调函数
-cb_id=124           //回调函数的编号
-cb_1=0              //..
-cb_2=3^             //代表第n个参数是块长度描述
-cb_3=n              //数值类型 决定第二个引用类型长度
-cb_4=100&           //引用类型 长度
-cb_retrun=0         //响应返回
-func_return=0       //是否有返回值
-end
 
-//执行返回值
+/* c# -> c++ (请求执行函数)
+req_id=123      //请求编号
+func_name=do    //函数名
+func_return=0   //是否有返回值
+
+arg_1=0         //参数值类型
+
+arg_2=100*      //参数引用类型
+<bytes 100>     //引用类型的块
+
+arg_3=124$      //参数是回调函数 回调函数的请求编号 
+cb_retrun=0     //返回值
+cb_1=0          //..
+cb_2=3^         //代表第n个参数是块长度描述
+cb_3=#          //数值类型 决定第二个引用类型长度
+cb_4=100&       //引用类型 长度
+cb_end		    
+
+req_end         //请求结束
+*/
+
+/* c++ -> c# (执行返回值)
 req_id=123
+func_return=1
 arg_1=0
 arg_2=100*
 <bytes>
 arg_3=0
-func_return=1
+req_end         //请求结束
 
 //回调
 cb_id=124
@@ -87,16 +97,9 @@ int mainx(int argc, char *argv[])
 	return 0;
 }
 
-typedef string (*cb0)();
-#define FUN0 []()->string{ return __FUNCTION__;}
 int main()
 {
-	std::map<string, cb0> _cb_0;
-	cb0 _cb0[] = {FUN0,FUN0,FUN0,FUN0};
-	for(auto i = begin(_cb0); i != end(_cb0); i++)
-	{
-		_cb_0.insert(pair<string, cb0>((*i)(),*i));
-	}
+	callback_function::init_callbacks();
 	return 0;
 }
 

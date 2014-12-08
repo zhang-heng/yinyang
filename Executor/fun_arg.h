@@ -10,6 +10,7 @@ namespace yinyang{
 		fun_arg(){};
 		~fun_arg(void){};
 		virtual long get_value(){return 0;};
+		virtual void handle(long v){};
 		static fun_arg * gen_new_arg(std::vector<std::vector<char>> args);
 		static std::vector<std::string> split(std::string& str, char pattern);
 	};
@@ -34,6 +35,17 @@ namespace yinyang{
 	private:
 		refer_arg(std::vector<std::vector<char>> args);
 		char* _refer_buffer;
+	};
+
+	class return_arg :public fun_arg
+	{
+	public:
+		~return_arg(void);
+		bool is_block();
+		static fun_arg * gen_new_arg(std::vector<std::vector<char>> args, std::string arg);
+	private:
+		return_arg(void); 
+		bool _block;
 	};
 
 #include "callback_function.h"

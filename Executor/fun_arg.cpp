@@ -1,19 +1,6 @@
 #include "fun_arg.h"
 #include <string>
 
-/*
-arg_1=0             //参数值类型
-arg_2=100*          //参数引用类型
-<bytes 100>         //引用类型的块
-arg_3=cb$           //参数是回调函数
-cb_id=124           //回调函数的编号
-cb_1=0              //..
-cb_2=3^             //代表第n个参数是块长度描述
-cb_3=n              //数值类型 决定第二个引用类型长度
-cb_4=100&           //引用类型 长度
-cb_retrun=0         //响应返回
-*/
-
 namespace yinyang{
 	using namespace std;
 
@@ -123,6 +110,27 @@ namespace yinyang{
 	fun_arg * callback_arg::gen_new_arg( std::vector<std::vector<char>> args )
 	{
 		return nullptr;
+	}
+
+	return_arg::~return_arg()
+	{
+
+	}
+
+	fun_arg * return_arg::gen_new_arg( vector<vector<char>> args, string arg )
+	{
+		return nullptr;
+	}
+
+	return_arg::return_arg()
+		:_block(false)
+	{
+
+	}
+
+	bool return_arg::is_block()
+	{
+		return _block;
 	}
 
 }
