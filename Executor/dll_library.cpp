@@ -3,16 +3,16 @@
 
 namespace yinyang{
 	using namespace std;
-	dll_library::dll_library(string path):_dll_path(path), _dll_handle(0) { }
+	DllLibrary::DllLibrary(string path):_dll_path(path), _dll_handle(0) { }
 
-	dll_library::~dll_library(void)	{ }
+	DllLibrary::~DllLibrary(void)	{ }
 
-	bool dll_library::init_dll()
+	bool DllLibrary::init_dll()
 	{
 		return true;
 	}
 
-	long dll_library::load_function(string name, int args)
+	long DllLibrary::load_function(string name, int args)
 	{
 		return 0;
 	}

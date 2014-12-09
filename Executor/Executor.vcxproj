@@ -79,7 +79,7 @@
     <ClInclude Include="block_queue.h" />
     <ClInclude Include="callback_function.h" />
     <ClInclude Include="dll_library.h" />
-    <ClInclude Include="dll_function.h" />
+    <ClInclude Include="lib_function.h" />
     <ClInclude Include="function_handler.h" />
     <ClInclude Include="fun_arg.h" />
     <ClInclude Include="pipeIO.h" />
@@ -87,7 +87,7 @@
   <ItemGroup>
     <ClCompile Include="callback_function.cpp" />
     <ClCompile Include="dll_library.cpp" />
-    <ClCompile Include="dll_function.cpp" />
+    <ClCompile Include="lib_function.cpp" />
     <ClCompile Include="function_handler.cpp" />
     <ClCompile Include="fun_arg.cpp" />
     <ClCompile Include="main.cpp" />

@@ -11,11 +11,11 @@
 
 namespace yinyang
 {
-	class pipeIO
+	class PipeIO
 	{
 	public:
-		pipeIO(std::string in, std::string out);
-		~pipeIO(void);
+		PipeIO(std::string in, std::string out);
+		~PipeIO(void);
 		bool init_io_file();
 		bool write(byte_buffer buff); 
 		bool write_line(std::string str);
@@ -29,6 +29,6 @@ namespace yinyang
 		std::shared_ptr<std::ofstream> _writer;
 	};
 
-	extern block_queue<byte_buffer> _send_queue;
-	extern block_queue<byte_buffer> _recv_queue;
+	extern BlockQueue<byte_buffer> _send_queue;
+	extern BlockQueue<byte_buffer> _recv_queue;
 }

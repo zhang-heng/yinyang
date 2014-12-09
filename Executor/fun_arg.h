@@ -4,59 +4,59 @@
 #include "callback_function.h"
 
 namespace yinyang{
-	class fun_arg
+	class FunArg
 	{
 	public:
-		fun_arg(){};
-		~fun_arg(void){};
+		FunArg(){};
+		~FunArg(void){};
 		virtual long get_value(){return 0;};
 		virtual void handle(long v){};
-		static fun_arg * gen_new_arg(std::vector<std::vector<char>> args);
+		static FunArg * gen_new_arg(std::vector<std::vector<char>> args);
 		static std::vector<std::string> split(std::string& str, char pattern);
 	};
 
-	class value_arg :public fun_arg
+	class ReturnArg :public FunArg
 	{
 	public:
-		~value_arg(void);
-		long get_value(); 
-		static fun_arg * gen_new_arg(std::string arg);
-	private:
-		value_arg(long v);
-		long _value;
-	};
-
-	class refer_arg :public fun_arg
-	{
-	public:
-		~refer_arg(void);
-		long get_value(); 
-		static fun_arg * gen_new_arg(std::vector<std::vector<char>> args, std::string arg);
-	private:
-		refer_arg(std::vector<std::vector<char>> args);
-		char* _refer_buffer;
-	};
-
-	class return_arg :public fun_arg
-	{
-	public:
-		~return_arg(void);
+		~ReturnArg(void);
 		bool is_block();
-		static fun_arg * gen_new_arg(std::vector<std::vector<char>> args, std::string arg);
+		static FunArg * gen_new_arg(std::vector<std::vector<char>> args, std::string arg);
 	private:
-		return_arg(void); 
+		ReturnArg(void); 
 		bool _block;
 	};
 
-#include "callback_function.h"
-	class callback_arg :public fun_arg
+	class ValueArg :public FunArg
 	{
 	public:
-		~callback_arg(void);
+		~ValueArg(void);
 		long get_value(); 
-		static fun_arg * gen_new_arg(std::vector<std::vector<char>> args);
+		static FunArg * gen_new_arg(std::string arg);
 	private:
-		callback_arg(std::vector<std::vector<char>> args);
-		callback_function *_callback;
+		ValueArg(long v);
+		long _value;
+	};
+
+	class ReferArg :public FunArg
+	{
+	public:
+		~ReferArg(void);
+		long get_value(); 
+		static FunArg * gen_new_arg(std::vector<std::vector<char>> args, std::string arg);
+	private:
+		ReferArg(std::vector<std::vector<char>> args);
+		char* _refer_buffer;
+	};
+
+#include "callback_function.h"
+	class CallbackArg :public FunArg
+	{
+	public:
+		~CallbackArg(void);
+		long get_value(); 
+		static FunArg * gen_new_arg(std::vector<std::vector<char>> args);
+	private:
+		CallbackArg(std::vector<std::vector<char>> args);
+		CallbackFunction *_callback;
 	};
 }

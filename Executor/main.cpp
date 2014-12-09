@@ -59,7 +59,7 @@ int mainx(int argc, char *argv[])
 	}
 	cout<<argv[1]<<endl;
 	cout<<argv[2]<<endl;
-	pipeIO *io = new pipeIO(argv[1], argv[2]);
+	PipeIO *io = new PipeIO(argv[1], argv[2]);
 	if (!io->init_io_file())
 	{
 		cout<<"error to init I/O"<<endl;
@@ -99,7 +99,7 @@ int mainx(int argc, char *argv[])
 
 int main()
 {
-	callback_function::init_callbacks();
+	CallbackFunction::init_callbacks();
 	return 0;
 }
 

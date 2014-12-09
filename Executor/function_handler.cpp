@@ -5,16 +5,16 @@ namespace yinyang{
 	using namespace std;
 
 
-	function_handler::function_handler(int h, vector<fun_arg> args) 
+	FunctionHandler::FunctionHandler(int h, vector<FunArg> args) 
 		:_handle(h), _args(args)
 	{
 	}
 
-	function_handler::~function_handler(void)
+	FunctionHandler::~FunctionHandler(void)
 	{
 	}
 
-	void function_handler::handle(void (*finish)(std::vector<fun_arg> args, long ret))
+	void FunctionHandler::handle(void (*finish)(std::vector<FunArg> args, long ret))
 	{  
 		auto call = [=]()
 		{
@@ -24,7 +24,7 @@ namespace yinyang{
 		thread _thread(call);
 	}
 
-	long function_handler::call_method()
+	long FunctionHandler::call_method()
 	{
 		long ret = 0;
 		switch (_args.size())

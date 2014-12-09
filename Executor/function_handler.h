@@ -6,16 +6,16 @@
 namespace yinyang{
 
 
-	class function_handler
+	class FunctionHandler
 	{
 	public:
-		function_handler(int h, std::vector<fun_arg> args);
-		~function_handler(void);
-		void handle(void (*finish)(std::vector<fun_arg> args, long ret));
+		FunctionHandler(int h, std::vector<FunArg> args);
+		~FunctionHandler(void);
+		void handle(void (*finish)(std::vector<FunArg> args, long ret));
 	private:
 		long call_method();
 		int _handle;
 		std::thread _thread;
-		std::vector<fun_arg> _args;
+		std::vector<FunArg> _args;
 	};
 }

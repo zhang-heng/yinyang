@@ -4,7 +4,7 @@
 
 namespace yinyang
 {
-	template<typename T> class block_queue
+	template<typename T> class BlockQueue
 	{
 	public:
 		T pop(){

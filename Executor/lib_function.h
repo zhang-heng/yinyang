@@ -6,16 +6,16 @@
 
 namespace yinyang
 {
-	class dll_function
+	class LibFunction
 	{
 	public:
-		dll_function(std::string name, long handle, int argc);
-		~dll_function(void);
-		function_handler* get_handler(std::vector<fun_arg> args);
+		LibFunction(std::string name, long handle, int argc);
+		~LibFunction(void);
+		FunctionHandler* get_handler(std::vector<FunArg> args);
 	private:
 		int _argc;
 		std::string _name;
 		long _handle;
-		std::vector <fun_arg> _args; 
+		std::vector <FunArg> _args; 
 	};
 }

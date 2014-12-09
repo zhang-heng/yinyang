@@ -26,7 +26,7 @@ namespace yinyang{
 	using namespace std;
 
 	/*static*/
-	void callback_function::init_callbacks()
+	void CallbackFunction::init_callbacks()
 	{
 		if (!inited)
 		{
@@ -40,55 +40,55 @@ namespace yinyang{
 			__fun7 cb7[] = {FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7,FUN7};
 			__fun8 cb8[] = {FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8,FUN8};
 			__fun9 cb9[] = {FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9,FUN9};
-			for(auto i = begin(cb0); i != end(cb0); i++) new callback_function((char*)(*i)(),(long)i,0);
-			for(auto i = begin(cb1); i != end(cb1); i++) new callback_function((char*)(*i)(0),(long)i,1);
-			for(auto i = begin(cb2); i != end(cb2); i++) new callback_function((char*)(*i)(0,0),(long)i,2);
-			for(auto i = begin(cb3); i != end(cb3); i++) new callback_function((char*)(*i)(0,0,0),(long)i,3);
-			for(auto i = begin(cb4); i != end(cb4); i++) new callback_function((char*)(*i)(0,0,0,0),(long)i,4);
-			for(auto i = begin(cb5); i != end(cb5); i++) new callback_function((char*)(*i)(0,0,0,0,0),(long)i,5);
-			for(auto i = begin(cb6); i != end(cb6); i++) new callback_function((char*)(*i)(0,0,0,0,0,0),(long)i,6);
-			for(auto i = begin(cb7); i != end(cb7); i++) new callback_function((char*)(*i)(0,0,0,0,0,0,0),(long)i,7);
-			for(auto i = begin(cb8); i != end(cb8); i++) new callback_function((char*)(*i)(0,0,0,0,0,0,0,0),(long)i,8);
-			for(auto i = begin(cb9); i != end(cb9); i++) new callback_function((char*)(*i)(0,0,0,0,0,0,0,0,0),(long)i,9);
+			for(auto i = begin(cb0); i != end(cb0); i++) new CallbackFunction((char*)(*i)(),(long)i,0);
+			for(auto i = begin(cb1); i != end(cb1); i++) new CallbackFunction((char*)(*i)(0),(long)i,1);
+			for(auto i = begin(cb2); i != end(cb2); i++) new CallbackFunction((char*)(*i)(0,0),(long)i,2);
+			for(auto i = begin(cb3); i != end(cb3); i++) new CallbackFunction((char*)(*i)(0,0,0),(long)i,3);
+			for(auto i = begin(cb4); i != end(cb4); i++) new CallbackFunction((char*)(*i)(0,0,0,0),(long)i,4);
+			for(auto i = begin(cb5); i != end(cb5); i++) new CallbackFunction((char*)(*i)(0,0,0,0,0),(long)i,5);
+			for(auto i = begin(cb6); i != end(cb6); i++) new CallbackFunction((char*)(*i)(0,0,0,0,0,0),(long)i,6);
+			for(auto i = begin(cb7); i != end(cb7); i++) new CallbackFunction((char*)(*i)(0,0,0,0,0,0,0),(long)i,7);
+			for(auto i = begin(cb8); i != end(cb8); i++) new CallbackFunction((char*)(*i)(0,0,0,0,0,0,0,0),(long)i,8);
+			for(auto i = begin(cb9); i != end(cb9); i++) new CallbackFunction((char*)(*i)(0,0,0,0,0,0,0,0,0),(long)i,9);
 			inited = true;
 		}
 	}
 	/*static*/
-	callback_function* callback_function::creat_callback_funciton(vector<vector<char>> args)
+	CallbackFunction* CallbackFunction::creat_callback_funciton(vector<vector<char>> args)
 	{
 		return nullptr;
 	}
 	/*static*/
-	map<string, callback_function*> callback_function::_callbacks;
+	map<string, CallbackFunction*> CallbackFunction::_callbacks;
 	/*static*/
-	bool callback_function::inited = false;
+	bool CallbackFunction::inited = false;
 
-	callback_function::callback_function(string name, long l_address, int argn)
+	CallbackFunction::CallbackFunction(string name, long l_address, int argn)
 		:_used(false), _lambda_fun_name(name), _fun_address(l_address), _argn(argn)
 	{
-		_callbacks.insert(pair<string, callback_function*>(_lambda_fun_name, this));
+		_callbacks.insert(pair<string, CallbackFunction*>(_lambda_fun_name, this));
 	}
 
-	void callback_function::creat_handler(vector<fun_arg*> args) 
+	void CallbackFunction::creat_handler(vector<FunArg*> args) 
 	{
 		auto argn = _args.size() - 1;
 		_used = true;
 		string fun_name = "";
 	}
 
-	callback_function::~callback_function(void)
+	CallbackFunction::~CallbackFunction(void)
 	{
 
 	}
 
-	long callback_function::call_fun(long __1, long __2, long __3, long __4, long __5, long __6, long __7, long __8, long __9)
+	long CallbackFunction::call_fun(long __1, long __2, long __3, long __4, long __5, long __6, long __7, long __8, long __9)
 	{ 
 		bool block_wait_result = false; 
 		long ret = 0;
 		for (auto i = _args.begin(); i!= _args.end(); i++)
 		{  
 			//return value(block or no block handle)
-			if (i == _args.begin() + 0) block_wait_result = ((return_arg*)(*i))->is_block();
+			if (i == _args.begin() + 0) block_wait_result = ((ReturnArg*)(*i))->is_block();
 			if (i == _args.begin() + 1) (*i)->handle(__1);
 			if (i == _args.begin() + 2) (*i)->handle(__2);
 			if (i == _args.begin() + 3) (*i)->handle(__3);
