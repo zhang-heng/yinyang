@@ -65,3 +65,15 @@ extern "C" _declspec(dllexport)bool test_callback3(int a, cbfun3 fun)
 	return true;
 }
 
+
+//回调处理 阻塞处理回调返回值 
+typedef int (*cbfun4)(int i);
+extern "C" _declspec(dllexport)bool test_callback4(cbfun4 fun)
+{
+	int n = 0;
+	for (int i = 0; i<100; i++)
+	{
+		n = fun(n);
+	}
+	return true;
+}

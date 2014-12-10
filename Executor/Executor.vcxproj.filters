@@ -39,6 +39,9 @@
     <ClInclude Include="pipe_io.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="types.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -84,6 +84,7 @@
     <ClInclude Include="fun_arg.h" />
     <ClInclude Include="message.h" />
     <ClInclude Include="pipe_io.h" />
+    <ClInclude Include="types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="callback_function.cpp" />

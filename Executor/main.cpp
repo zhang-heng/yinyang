@@ -12,40 +12,58 @@ using namespace std;
 using namespace yinyang;
 
 /* c# -> c++ (请求执行函数)
-req_id=123      //请求编号
-func_name=do    //函数名
-func_return=0   //是否有返回值
-
-arg_1=0         //参数值类型
-
-arg_2=100*      //参数引用类型
-<bytes 100>     //引用类型的块
-
-arg_3=124$      //参数是回调函数 回调函数的请求编号 
-cb_retrun=0     //返回值
-cb_1=0          //..
-cb_2=3^         //代表第n个参数是块长度描述
-cb_3=#          //数值类型 决定第二个引用类型长度
-cb_4=100&       //引用类型 长度
-cb_end		    
-
-req_end         //请求结束
-*/
+/*json 描述
+{
+_<json>
+_\n
+_l (4 bytes) : payload length)
+_<l>
+}
+json
+{
+_"type"="invoke", //调用函数
+_"invoke_id"=123,
+_"lib_path"="ExecutorTest.dll",
+_"fun_name"="ExecutorTest",
+_"return_type"="value"/"ref"/"return_size",
+_"return_size"=1024,
+_"fun_args"=["value":1,
+_____________"refer":[0,100],
+_____________"callback":{"callback_id":1234,
+_________________________"block":"true", 
+_________________________"return":"value"/"ref",
+_________________________"defult_return":0,       //(block = false)
+_________________________"fun_args":["value":1,
+_____________________________________"refer":100,
+_____________________________________"refer":"n_size",
+_____________________________________"n_size":32
+____________________________________]
+_________________________}
+_____________]"
+}
 
 /* c++ -> c# (执行返回值)
-req_id=123
-func_return=1
-arg_1=0
-arg_2=100*
-<bytes>
-arg_3=0
-req_end         //请求结束
+json
+{
+_"type"="invoke",     //响应执行
+_"invoke_id"=123,
+_"return_type"="value"/"ref"/"return_size",
+_"return_size"=[100,199],
+_"fun_args"=["value":1,
+_____________"refer":[0,99]
+_____________]"
+}
 
-//回调
-cb_id=124
-cb_1=0
-cb_2=100*
-<bytes 100>
+json
+{
+_"type"="callback",     //响应回调
+_"callback_id"=1234,
+_"return_type"="value"/"ref"/"return_size",
+_"return_size"=[100,199],
+_"fun_args"=["value":1,
+_____________"refer":[0,99]
+_____________]"
+}
 */
 
 int mainx(int argc, char *argv[])
