@@ -11,12 +11,14 @@ namespace yinyang
 	public:
 		DllLibrary(std::string path);
 		~DllLibrary();
-		bool init_dll();
-		long load_function(std::string name, int args);
+		long LoadDllLibrary();
+		long GetLibraryId();
+		std::string GetPath();
+		long LoadFunction(std::string name);
 		bool handle_func(std::string name, std::vector<FunArg> args);
-	private: 
-		std::string _dll_path;
+	private:
 		long _dll_handle;
+		std::string _dll_path;
 		std::map<std::string, LibFunction> _funcs;
 	};
 }
