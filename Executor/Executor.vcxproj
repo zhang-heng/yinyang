@@ -82,7 +82,8 @@
     <ClInclude Include="lib_function.h" />
     <ClInclude Include="function_handler.h" />
     <ClInclude Include="fun_arg.h" />
-    <ClInclude Include="pipeIO.h" />
+    <ClInclude Include="message.h" />
+    <ClInclude Include="pipe_io.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="callback_function.cpp" />
@@ -91,7 +92,8 @@
     <ClCompile Include="function_handler.cpp" />
     <ClCompile Include="fun_arg.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="pipeIO.cpp" />
+    <ClCompile Include="message.cpp" />
+    <ClCompile Include="pipe_io.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
