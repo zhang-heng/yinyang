@@ -1,5 +1,6 @@
 #include <windows.h>
 
+#include "../jsoncpp/src/include/json/json.h"
 #include "pipe_io.h"
 #include "callback_function.h"
 
@@ -116,7 +117,7 @@ int mainx(int argc, char *argv[])
 }
 
 int main()
-{
+{ 
 	CallbackFunction::init_callbacks();
 	return 0;
 }
