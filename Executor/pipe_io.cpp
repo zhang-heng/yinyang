@@ -13,27 +13,27 @@ namespace yinyang {
 
 	bool PipeIO::init_io_file()
 	{
-		return true;
+		throw new exception();
 	}
 
 	bool PipeIO::write(byte_buffer buff)
 	{
-		return true;
+		throw new exception();
 	}
 
 	bool PipeIO::write_line(std::string str)
 	{
-		return true;
+		throw new exception();
 	}
 
-	bool PipeIO::read(byte_buffer buff)
+	byte_buffer PipeIO::read(long size)
 	{
-		return nullptr;
+		throw new exception();
 	}
 
 	std::string PipeIO::read_line()
 	{
-		return nullptr;
+		throw new exception();
 	}
 
 	PipeIO::~PipeIO(void)

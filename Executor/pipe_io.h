@@ -17,9 +17,11 @@ namespace yinyang
 		PipeIO(std::string in, std::string out);
 		~PipeIO(void);
 		bool init_io_file();
+
 		bool write(byte_buffer buff); 
 		bool write_line(std::string str);
-		bool read(byte_buffer buff);
+
+		byte_buffer read(long size); 
 		std::string read_line();
 	private:
 		std::string _in_file_path;

@@ -11,8 +11,9 @@ namespace yinyang{
 		bool Init();
 		~Message();
 	private:
-		std::vector<char> ReadMessage();
-		void AsyncHanlde(std::vector<char> buff);
+		std::pair<std::vector<char>, std::vector<char>>  ReadMessage();
+		long GetNextSize();
+		void AsyncHanlde(std::pair<std::vector<char>, std::vector<char>> buff);
 		void DelAyncThreadByID(std::thread::id id);
 		PipeIO _io;
 		std::thread *_reader;
