@@ -2,61 +2,50 @@
 #include <string>
 #include <vector>
 #include "callback_function.h"
+#include "types.h"
 
 namespace yinyang{
+	class _function_;
 	class FunArg
 	{
 	public:
 		FunArg(){};
 		~FunArg(void){};
-		virtual long get_value(){return 0;};
-		virtual void handle(long v){};
-		static FunArg * gen_new_arg(std::vector<std::vector<char>> args);
-		static std::vector<std::string> split(std::string& str, char pattern);
-	};
-
-	class ReturnArg :public FunArg
-	{
-	public:
-		~ReturnArg(void);
-		bool is_block();
-		static FunArg * gen_new_arg(std::vector<std::vector<char>> args, std::string arg);
-	private:
-		ReturnArg(void); 
-		bool _block;
+		ArgumentType  GetType() {return _type;};
+	protected:
+		ArgumentType _type;
 	};
 
 	class ValueArg :public FunArg
 	{
 	public:
-		~ValueArg(void);
-		long get_value(); 
-		static FunArg * gen_new_arg(std::string arg);
-	private:
-		ValueArg(long v);
-		long _value;
+		ValueArg();
+		~ValueArg(void){};
 	};
 
 	class ReferArg :public FunArg
 	{
 	public:
-		~ReferArg(void);
-		long get_value(); 
-		static FunArg * gen_new_arg(std::vector<std::vector<char>> args, std::string arg);
+		ReferArg();
+		~ReferArg(void){};
+	};
+
+	class ReturnArg :public FunArg
+	{
+	public:
+		ReturnArg(); 
+		~ReturnArg(void){};
+
 	private:
-		ReferArg(std::vector<std::vector<char>> args);
-		char* _refer_buffer;
+		bool _block;
+		FunArg _arg_type;
 	};
 
 #include "callback_function.h"
 	class CallbackArg :public FunArg
 	{
 	public:
-		~CallbackArg(void);
-		long get_value(); 
-		static FunArg * gen_new_arg(std::vector<std::vector<char>> args);
-	private:
-		CallbackArg(std::vector<std::vector<char>> args);
-		CallbackFunction *_callback;
+		CallbackArg();
+		~CallbackArg(){};
 	};
 }

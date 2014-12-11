@@ -1,3 +1,4 @@
+#pragma once
 
 namespace yinyang{
 	enum class message_type : char
@@ -5,8 +6,10 @@ namespace yinyang{
 
 	};
 
-	enum class arg_type : char
+	enum class ArgumentType : char
 	{
-
+		Value,
+		Refer,
+		Callback
 	};
 }

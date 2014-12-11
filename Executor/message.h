@@ -1,5 +1,7 @@
 #include "pipe_io.h"
 #include "dll_library.h"
+#include "types.h"
+#include "fun_arg.h"
 
 #include "json/json.h"
 
@@ -10,19 +12,24 @@
 
 
 namespace yinyang{
-	typedef std::pair<std::vector<char>, std::vector<char>> Packet;
 
 	class Message
 	{
 	public:
 		Message(std::string in, std::string out);
 		bool Init();
+		void WaitExit();
 		~Message();
 	private:
+		typedef std::pair<PipeIO::byte_buffer, PipeIO::byte_buffer> Packet;
 		Packet ReadMessage();
 		long GetNextSize();
-		void Handle(Json::Value &json, std::vector<char> &payload);
 		void AsyncHandle(Packet packet);
+		void Handle(Json::Value json, PipeIO::byte_buffer payload);
+		void HandleLoadLibrary(long req_id, std::string path);
+		void HandleLoadFunction(long req_id, long lib_id, std::string fun_name);
+		void HandleInvokeFunction(long req_id, long lib_id, long fun_id, Json::Value args, PipeIO::byte_buffer payload);
+		void HandleReturnCallback(long callback_id, Json::Value args, PipeIO::byte_buffer payload);
 		void DelAyncThreadByID(std::thread::id id);
 		PipeIO _io;
 		std::thread *_reader;

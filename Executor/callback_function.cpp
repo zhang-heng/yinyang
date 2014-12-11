@@ -88,17 +88,17 @@ namespace yinyang{
 		for (auto i = _args.begin(); i!= _args.end(); i++)
 		{  
 			//return value(block or no block handle)
-			if (i == _args.begin() + 0) block_wait_result = ((ReturnArg*)(*i))->is_block();
-			if (i == _args.begin() + 1) (*i)->handle(__1);
-			if (i == _args.begin() + 2) (*i)->handle(__2);
-			if (i == _args.begin() + 3) (*i)->handle(__3);
-			if (i == _args.begin() + 4) (*i)->handle(__4);
-			if (i == _args.begin() + 5) (*i)->handle(__5);
-			if (i == _args.begin() + 6) (*i)->handle(__6);
-			if (i == _args.begin() + 7) (*i)->handle(__7);
-			if (i == _args.begin() + 8) (*i)->handle(__8);
-			if (i == _args.begin() + 9) (*i)->handle(__9);
+			//if (i == _args.begin() + 0) block_wait_result = ((ReturnArg*)(*i))->is_block();
+			//if (i == _args.begin() + 1) (*i)->handle(__1);
+			//if (i == _args.begin() + 2) (*i)->handle(__2);
+			//if (i == _args.begin() + 3) (*i)->handle(__3);
+			//if (i == _args.begin() + 4) (*i)->handle(__4);
+			//if (i == _args.begin() + 5) (*i)->handle(__5);
+			//if (i == _args.begin() + 6) (*i)->handle(__6);
+			//if (i == _args.begin() + 7) (*i)->handle(__7);
+			//if (i == _args.begin() + 8) (*i)->handle(__8);
+			//if (i == _args.begin() + 9) (*i)->handle(__9);
 		}
-		return _args[0]->get_value();
+		return 0;//_args[0]->get_value();
 	}
 }

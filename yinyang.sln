@@ -4,10 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeInvoker", "SafeInvoker\SafeInvoker.csproj", "{D2C4C2AB-E279-472F-BF93-21008762AE94}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Executor", "Executor\Executor.vcxproj", "{73083D36-7C5D-407C-BE33-519BEED470F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3EACF658-7EBC-4959-B052-691936E48AE6} = {3EACF658-7EBC-4959-B052-691936E48AE6}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExecutorTest", "ExecutorTest\ExecutorTest.vcxproj", "{859E2FFF-44E5-47FC-8F6E-E21A70D768EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeInvokerTest", "SafeInvokerTest\SafeInvokerTest.csproj", "{59CB4D37-F757-4CFB-8ABD-6BAA0E0EDA83}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D2C4C2AB-E279-472F-BF93-21008762AE94} = {D2C4C2AB-E279-472F-BF93-21008762AE94}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{FA2D5BB2-2623-4414-9E5E-6CFE2D68C732}"
 EndProject
