@@ -26,10 +26,11 @@ namespace yinyang{
 		long GetNextSize();
 		void AsyncHandle(Packet packet);
 		void Handle(Json::Value json, PipeIO::byte_buffer payload);
-		void HandleLoadLibrary(long req_id, std::string path);
-		void HandleLoadFunction(long req_id, long lib_id, std::string fun_name);
-		void HandleInvokeFunction(long req_id, long lib_id, long fun_id, Json::Value args, PipeIO::byte_buffer payload);
-		void HandleReturnCallback(long callback_id, Json::Value args, PipeIO::byte_buffer payload);
+		void HandleLoadLibrary(Json::Value &respond, long req_id, std::string path);
+		void HandleLoadFunction(Json::Value &respond, long req_id, long lib_id, std::string fun_name, long argn);
+		void HandleInvokeFunction(Json::Value &respond, long req_id, long lib_id, long fun_id,
+			Json::Value args, PipeIO::byte_buffer payload);
+		void HandleReturnCallback(Json::Value &respond, long callback_id, Json::Value args, PipeIO::byte_buffer payload);
 		void DelAyncThreadByID(std::thread::id id);
 		FunArgs ExtractArgs(Json::Value args);
 		PipeIO _io;

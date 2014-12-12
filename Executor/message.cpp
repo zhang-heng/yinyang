@@ -30,6 +30,7 @@ _"type":"load_fun",
 _"req_id":111,
 _"lib_id":111,
 _"fun_name":"ExecutorTest",
+_"fun_argn":1
 }
 
 json
@@ -163,12 +164,14 @@ namespace yinyang{
 	void Message::Handle(Json::Value json, PipeIO::byte_buffer payload)
 	{
 		assert(json.size()>0);
+		Json::Value respond;
 		auto type = json["type"].asString();
+		respond["type"] = type;
 		if (type =="callback")
 		{
 			auto callback_id = json["callback_id"].asUInt();
 			auto args = json["fun_args"];
-			HandleReturnCallback(callback_id, args, payload);
+			HandleReturnCallback(respond, callback_id, args, payload);
 		}
 		else if (type =="invoke")
 		{
@@ -176,25 +179,26 @@ namespace yinyang{
 			auto lib_id = json["lib_id"].asUInt();
 			auto fun_id = json["fun_id"].asUInt();
 			auto args = json["fun_args"];
-			HandleInvokeFunction(req_id, lib_id, fun_id, args, payload);
+			HandleInvokeFunction(respond, req_id, lib_id, fun_id, args, payload);
 		}
 		else if (type =="load_fun")
 		{
 			auto req_id = json["req_id"].asUInt();
 			auto lib_id = json["lib_id"].asUInt();
 			auto fun_name = json["fun_name"].asString();
-			HandleLoadFunction(req_id, lib_id, fun_name);
+			auto fun_argn = json["fun_argn"].asUInt();
+			HandleLoadFunction(respond, req_id, lib_id, fun_name, fun_argn);
 		}
 		else if (type =="load_lib")
 		{
 			auto req_id = json["req_id"].asUInt();
 			auto path = json["lib_path"].asString();
-			HandleLoadLibrary(req_id, path);
+			HandleLoadLibrary(respond, req_id, path);
 		}
 		else throw exception ("unknow error.");
 	}
 
-	void Message::HandleLoadLibrary(long req_id, std::string path)
+	void Message::HandleLoadLibrary(Json::Value &respond, long req_id, std::string path)
 	{
 		auto added = find_if(_libs.begin(), _libs.end(),
 			[path](pair<long, DllLibrary*> it){return it.second->GetPath() == path;});
@@ -216,20 +220,20 @@ namespace yinyang{
 		throw exception ("errrrrr");
 	}
 
-	void Message::HandleLoadFunction( long req_id, long lib_id, std::string fun_name )
+	void Message::HandleLoadFunction(Json::Value &respond, long req_id, long lib_id, std::string fun_name, long argn)
 	{
 		if(_libs[lib_id])
 		{
-			auto fun_id = _libs[lib_id]->LoadFunction(fun_name);
-			fun_id;//Todo...
+			auto fun_id = _libs[lib_id]->LoadFunction(fun_name, argn);
+			if(fun_id)
+				fun_id;//Todo...
 		}
 		throw exception ("errrrrr");
 	}
 
-	void Message::HandleInvokeFunction(long req_id, long lib_id, long fun_id,
+	void Message::HandleInvokeFunction(Json::Value &respond, long req_id, long lib_id, long fun_id,
 		Json::Value args, PipeIO::byte_buffer payload)
 	{
-
 		if(!_libs[lib_id] || !_libs[lib_id]->HasFunction(fun_id))
 			throw exception();
 		auto handler = _libs[lib_id]->GetFunctionHanlder(fun_id);
@@ -240,7 +244,7 @@ namespace yinyang{
 		throw exception();
 	}
 
-	void Message::HandleReturnCallback(long callback_id, Json::Value args, PipeIO::byte_buffer payload)
+	void Message::HandleReturnCallback(Json::Value &respond, long callback_id, Json::Value args, PipeIO::byte_buffer payload)
 	{
 	}
 

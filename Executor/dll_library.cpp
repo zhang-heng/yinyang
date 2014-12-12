@@ -19,10 +19,14 @@ namespace yinyang{
 		return _dll_handle;
 	}
 
-	long DllLibrary::LoadFunction(string name)
+	long DllLibrary::LoadFunction(string name, long argn)
 	{
 		auto ret = (long)GetProcAddress((HMODULE)_dll_handle, name.c_str());
-
+		if(ret)
+		{
+			_funcs.insert(pair<string, LibFunction>(name, LibFunction(name, argn, ret)));
+			return ret;
+		}
 		return 0;
 	}
 

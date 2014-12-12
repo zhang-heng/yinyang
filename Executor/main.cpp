@@ -10,18 +10,28 @@
 using namespace std;
 using namespace yinyang;
 
+void ModuleTest()
+{
+}
+
 int main(int argc, char *argv[])
 {
 	DWORD dwMode = SetErrorMode(SEM_NOGPFAULTERRORBOX);
 	SetErrorMode(dwMode | SEM_NOGPFAULTERRORBOX);
 
-	if (argc!=3) return -1;
-	Message msg(argv[1], argv[2]);
-	if (msg.Init())
+	if (argc!=3)
 	{
-		msg.WaitExit();
-		return 0;
-	} 
+		Message msg(argv[1], argv[2]);
+		if (msg.Init())
+		{
+			msg.WaitExit();
+			return 0;
+		}
+	}
+#ifdef _DEBUG
+	ModuleTest();
+#else
 	cout<<"error init."<<endl;
+#endif
 	return -1;
 }

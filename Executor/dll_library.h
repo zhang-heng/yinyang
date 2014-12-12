@@ -14,7 +14,7 @@ namespace yinyang
 		long LoadDllLibrary();
 		long GetLibraryId();
 		std::string GetPath();
-		long LoadFunction(std::string name);
+		long LoadFunction(std::string name, long argn);
 		bool HasFunction(long fun_id);
 		FunctionHandler GetFunctionHanlder(long fun_id);
 		bool handle_func(std::string name, std::vector<FunArg> args);
