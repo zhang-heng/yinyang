@@ -74,4 +74,8 @@ namespace yinyang{
 		return ret;
 	}
 
+	void FunctionHandler::Handle(FunArgs args)
+	{
+
+	}
 }

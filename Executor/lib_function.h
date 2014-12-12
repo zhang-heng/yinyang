@@ -12,6 +12,7 @@ namespace yinyang
 		LibFunction(std::string name, long handle, int argc);
 		~LibFunction(void);
 		FunctionHandler* get_handler(std::vector<FunArg> args);
+
 	private:
 		int _argc;
 		std::string _name;

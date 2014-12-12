@@ -37,17 +37,17 @@ _"type":"invoke", //调用函数
 _"req_id":111,
 _"lib_id":111,
 _"fun_id":111,
-_"fun_args":[{"type":"value/refer","refer_size":1024,"need":true},
-_____________{"type":"value","value":1,"need":true},
-_____________{"type":"refer","refer":[0,100],"need":true},
+_"fun_args":[{"type":"value/refer","refer_size":1024,"feedback,":true},
+_____________{"type":"value","value":1,"feedback":true},
+_____________{"type":"refer","refer":[0,100],"feedback":true},
 _____________{"type":"callback","callback":{"callback_id":1234,
-____________________________________________"fun_args":[{"type":"value/refer","refer_size":1024,"default":1,"need":false}
-________________________________________________________{"type":"value","need":true},
-________________________________________________________{"type":"refer","size":1024,"need":true},
-________________________________________________________{"type":"refer","size_arg":[4],"need":true},
-________________________________________________________{"type":"value","need":true}
+____________________________________________"fun_args":[{"type":"value/refer","refer_size":1024,"default":1,"feedback":false}
+________________________________________________________{"type":"value","feedback":true},
+________________________________________________________{"type":"refer","size":1024,"feedback":true},
+________________________________________________________{"type":"refer","size_arg":[4],"feedback":true},
+________________________________________________________{"type":"value","feedback":true}
 _______________________________________________________]
-____________________________________________},"need":true}
+____________________________________________},"feedback":true}
 ____________]
 }
 
@@ -56,8 +56,8 @@ json
 _"type":"callback",     //响应执行
 _"callback_id":111, 
 _"fun_args":[{"type":"value","value":1},
-_____________{"type":"needless"},
-_____________{"type":"needless"}
+_____________{"type":"feedbackless"},
+_____________{"type":"feedbackless"}
 ____________]
 }
 
@@ -68,7 +68,7 @@ _"type":"invoke",     //响应执行
 _"req_id":111, 
 _"fun_args":[{"type":"value","value":1},
 _____________{"type":"refer","refer":[0,99]},
-_____________{"type":"needless"}
+_____________{"type":"feedbackless"}
 ____________]
 }
 
@@ -77,9 +77,9 @@ json
 _"type":"callback",     //调用回调
 _"req_id":111,
 _"return_size":[100,199],
-_"fun_args":[{"type":"needless"},
+_"fun_args":[{"type":"feedbackless"},
 _____________{"type":"refer","refer":[0,99]},
-_____________{"type":"needless"}
+_____________{"type":"feedbackless"}
 ____________]
 }
 */
@@ -229,9 +229,49 @@ namespace yinyang{
 	void Message::HandleInvokeFunction(long req_id, long lib_id, long fun_id,
 		Json::Value args, PipeIO::byte_buffer payload)
 	{
+
+		if(!_libs[lib_id] || !_libs[lib_id]->HasFunction(fun_id))
+			throw exception();
+		auto handler = _libs[lib_id]->GetFunctionHanlder(fun_id);
+		auto fun_args = ExtractArgs(args);
+		fun_args.AttachPayload(payload);
+		handler.Handle(fun_args);
+		//Todo...
+		throw exception();
 	}
 
 	void Message::HandleReturnCallback(long callback_id, Json::Value args, PipeIO::byte_buffer payload)
 	{
 	}
+
+	yinyang::FunArgs Message::ExtractArgs(Json::Value args)
+	{
+		auto args_count = args.size();
+		FunArgs fun_args(args_count);
+
+		for (auto arg : args)
+		{
+			auto type = arg["type"].asString();
+			auto feedback = arg["feedback"].asBool();
+			auto def =  arg["default"].asUInt();
+
+			if(type == "value")
+			{
+				auto v = arg["value"].asUInt();
+				fun_args.AddArg(v, feedback, def);
+			}else if(type == "refer")
+			{
+				auto refer_size = arg["refer_size"];
+				pair<long,long> refer(refer_size[0].asUInt(), refer_size[1].asUInt());
+				fun_args.AddArg(refer, feedback, def);
+			}
+			else if(type == "callback")
+			{
+				auto callback = arg["callback"];
+				fun_args.AddArg(ExtractArgs(callback));
+			}
+		}
+		return fun_args;
+	}
+
 }

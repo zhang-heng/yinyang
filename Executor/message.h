@@ -31,6 +31,7 @@ namespace yinyang{
 		void HandleInvokeFunction(long req_id, long lib_id, long fun_id, Json::Value args, PipeIO::byte_buffer payload);
 		void HandleReturnCallback(long callback_id, Json::Value args, PipeIO::byte_buffer payload);
 		void DelAyncThreadByID(std::thread::id id);
+		FunArgs ExtractArgs(Json::Value args);
 		PipeIO _io;
 		std::thread *_reading;
 		std::thread *_writting;

@@ -11,6 +11,11 @@ namespace yinyang{
 	public:
 		FunctionHandler(int h, std::vector<FunArg> args);
 		~FunctionHandler(void);
+		void Handle(FunArgs args);
+
+
+
+
 		void handle(void (*finish)(std::vector<FunArg> args, long ret));
 	private:
 		long call_method();

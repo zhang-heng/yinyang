@@ -3,9 +3,9 @@
 #include <vector>
 #include "callback_function.h"
 #include "types.h"
+#include "pipe_io.h"
 
 namespace yinyang{
-	class _function_;
 	class FunArg
 	{
 	public:
@@ -19,21 +19,27 @@ namespace yinyang{
 	class ValueArg :public FunArg
 	{
 	public:
-		ValueArg();
+		ValueArg(long value);
 		~ValueArg(void){};
+	private:
+		long _value;
+		ValueArg();
 	};
 
 	class ReferArg :public FunArg
 	{
 	public:
-		ReferArg();
+		ReferArg::ReferArg(std::pair<long,long> size);
 		~ReferArg(void){};
+	private:
+		std::pair<long,long> _size;
+		ReferArg();
 	};
 
 	class ReturnArg :public FunArg
 	{
 	public:
-		ReturnArg(); 
+		ReturnArg();
 		~ReturnArg(void){};
 
 	private:
@@ -47,5 +53,18 @@ namespace yinyang{
 	public:
 		CallbackArg();
 		~CallbackArg(){};
+	};
+
+	class FunArgs
+	{
+	public:
+		FunArgs(long count);
+		~FunArgs(void);
+		void AddArg(long value, bool feedback, long def);
+		void AddArg(std::pair<long,long> refer, bool feedback, long def);
+		void AddArg(FunArgs callback_arg);
+		void AttachPayload(PipeIO::byte_buffer payload);
+	private:
+		const long _count_args;
 	};
 }

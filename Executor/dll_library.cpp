@@ -31,4 +31,13 @@ namespace yinyang{
 		return _dll_path;
 	}
 
+	bool DllLibrary::HasFunction( long fun_id )
+	{
+		return false;
+	}
+
+	FunctionHandler DllLibrary::GetFunctionHanlder(long fun_id)
+	{
+		throw exception();
+	}
 }
