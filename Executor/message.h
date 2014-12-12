@@ -32,8 +32,8 @@ namespace yinyang{
 		void HandleReturnCallback(long callback_id, Json::Value args, PipeIO::byte_buffer payload);
 		void DelAyncThreadByID(std::thread::id id);
 		PipeIO _io;
-		std::thread *_reader;
-		std::thread *_writer;
+		std::thread *_reading;
+		std::thread *_writting;
 		std::vector<std::thread> _handlers;
 
 		std::map<long, DllLibrary*> _libs;

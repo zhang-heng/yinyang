@@ -1,5 +1,6 @@
 #include "message.h"
 
+#include <algorithm>
 #include <mutex>
 
 /*
@@ -99,26 +100,26 @@ namespace yinyang{
 	{
 		if (_io.init_io_file())
 		{
-			_reader = new thread([=]()
+			_reading = new thread([=]()
 			{
 				while (true)
 				{
 					AsyncHandle(ReadMessage());
 				}
 			});
-			_writer = new thread([=]()
+			_writting = new thread([=]()
 			{
 
 			});
 			return true;
-		}		
+		}
 		return false;
 	}
 
 	void Message::WaitExit()
 	{
-		_reader->join();
-		_writer->join();
+		_reading->join();
+		_writting->join();
 	}
 
 	Message::Packet Message::ReadMessage()

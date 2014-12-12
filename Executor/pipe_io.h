@@ -3,10 +3,6 @@
 #include <fstream>
 #include <vector>
 #include <memory>
-#include <queue>
-
-#include "block_queue.h"
-
 
 namespace yinyang
 {
@@ -23,7 +19,7 @@ namespace yinyang
 		std::string _in_file_path;
 		std::string _out_file_path;
 
-		std::shared_ptr<std::ifstream> _reader;
-		std::shared_ptr<std::ofstream> _writer;
+		std::ifstream* _reader;
+		std::ofstream* _writer;
 	}; 
 }
