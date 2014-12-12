@@ -111,7 +111,12 @@ namespace yinyang{
 			});
 			_writting = new thread([=]()
 			{
-
+				while (true)
+				{
+					auto p = _respond_queue.pop();
+					_io.write(p.first);
+					_io.write(p.second);
+				}
 			});
 			return true;
 		}
@@ -172,6 +177,7 @@ namespace yinyang{
 			auto callback_id = json["callback_id"].asUInt();
 			auto args = json["fun_args"];
 			HandleReturnCallback(respond, callback_id, args, payload);
+			respond["callback_id"] = callback_id;
 		}
 		else if (type =="invoke")
 		{
@@ -180,6 +186,9 @@ namespace yinyang{
 			auto fun_id = json["fun_id"].asUInt();
 			auto args = json["fun_args"];
 			HandleInvokeFunction(respond, req_id, lib_id, fun_id, args, payload);
+			respond["req_id"] = req_id;
+			respond["lib_id"] = lib_id;
+			respond["fun_id"] = fun_id;
 		}
 		else if (type =="load_fun")
 		{
@@ -188,14 +197,21 @@ namespace yinyang{
 			auto fun_name = json["fun_name"].asString();
 			auto fun_argn = json["fun_argn"].asUInt();
 			HandleLoadFunction(respond, req_id, lib_id, fun_name, fun_argn);
+			respond["req_id"] = req_id;
+			respond["lib_id"] = lib_id;
 		}
 		else if (type =="load_lib")
 		{
 			auto req_id = json["req_id"].asUInt();
 			auto path = json["lib_path"].asString();
 			HandleLoadLibrary(respond, req_id, path);
+			respond["req_id"] = req_id;
 		}
-		else throw exception ("unknow error.");
+		else
+		{
+			respond["error"] = "unknown type.";
+		}
+		RespondMessage(respond, payload);
 	}
 
 	void Message::HandleLoadLibrary(Json::Value &respond, long req_id, std::string path)
@@ -279,4 +295,14 @@ namespace yinyang{
 		return fun_args;
 	}
 
+	void Message::RespondMessage(Json::Value json, PipeIO::byte_buffer payload)
+	{
+		Json::Value root;
+		Json::FastWriter writer;
+		root.append(json);
+		auto json_string = writer.write(root);
+		auto json_buffer = make_shared<vector<char>>(json_string.begin(), json_string.end());
+		pair<PipeIO::byte_buffer, PipeIO::byte_buffer> packet(json_buffer, payload);
+		_respond_queue.push(packet);
+	}
 }

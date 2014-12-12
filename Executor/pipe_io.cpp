@@ -1,4 +1,5 @@
 #include "pipe_io.h"
+#include <cassert>
 
 namespace yinyang {
 	using namespace std;
@@ -22,8 +23,10 @@ namespace yinyang {
 
 	bool PipeIO::write(byte_buffer buff)
 	{
+		auto c = buff->size();
+		_writer->write((char*)&c, 4);
 		_writer->write(buff->data(), buff->size());
-		if (_writer->fail()) return false;
+		assert(!_writer->fail());
 		return true ;
 	}
 
@@ -31,7 +34,7 @@ namespace yinyang {
 	{
 		byte_buffer buffer = make_shared<vector<char>>(size);
 		_reader->read(buffer->data(),size);
-		if (_reader->fail()) throw exception();
+		assert(!_reader->fail());
 		return buffer;
 	}
 

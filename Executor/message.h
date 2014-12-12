@@ -2,6 +2,7 @@
 #include "dll_library.h"
 #include "types.h"
 #include "fun_arg.h"
+#include "block_queue.h"
 
 #include "json/json.h"
 
@@ -33,11 +34,12 @@ namespace yinyang{
 		void HandleReturnCallback(Json::Value &respond, long callback_id, Json::Value args, PipeIO::byte_buffer payload);
 		void DelAyncThreadByID(std::thread::id id);
 		FunArgs ExtractArgs(Json::Value args);
+		void RespondMessage(Json::Value json, PipeIO::byte_buffer payload);
 		PipeIO _io;
 		std::thread *_reading;
 		std::thread *_writting;
+		BlockQueue<std::pair<PipeIO::byte_buffer, PipeIO::byte_buffer>> _respond_queue;
 		std::vector<std::thread> _handlers;
-
 		std::map<long, DllLibrary*> _libs;
 	};
 }

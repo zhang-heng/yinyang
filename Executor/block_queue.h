@@ -1,6 +1,7 @@
 #pragma once
 #include <mutex>
 #include <atomic>
+#include <deque>
 #include <condition_variable>
 
 namespace yinyang
@@ -22,8 +23,8 @@ namespace yinyang
 				}
 				return !_queue.empty();
 			});
-			auto t =_queue.front();
-			_queue.pop();
+			auto t = _queue.front();
+			_queue.pop_back();
 			_working = false;
 			return t;
 		}
@@ -31,7 +32,7 @@ namespace yinyang
 		void push(T t){
 			if (!_running) return;
 			std::unique_lock<mutex> lck(_mtx); 
-			_queue.push(t); 
+			_queue.push_front(t);
 			_cv.notify_one();
 		}
 
@@ -54,11 +55,10 @@ namespace yinyang
 			if (_running) Release();
 		}
 	private:
-
 		std::atomic_bool _working;
 		std::atomic_bool _running; 
 		std::mutex _mtx;
-		std::condition_variable _cv; 
-		std::queue<T> _queue;
+		std::condition_variable _cv;
+		std::deque<T> _queue;
 	}; 
 }
