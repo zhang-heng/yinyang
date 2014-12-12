@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <mutex>
+#include <cassert>
 
 /*
 
@@ -130,20 +131,20 @@ namespace yinyang{
 		return packet;
 	}
 
-	void Message::DelAyncThreadByID(thread::id id )
-	{ 
-		auto it = find_if(_handlers.begin(),_handlers.end(),
-			[id](thread &t){return t.get_id() == id;});
-		_handlers.erase(it);
+	long Message::GetNextSize()
+	{
+		long ret = 0;
+		auto chars = _io.read(4);
+		auto pchars = chars->data();
+		memcpy(&ret, pchars, 4);
+		return ret;
 	}
 
 	void Message::AsyncHandle(Packet packet)
 	{
 		Json::Reader reader;
 		Json::Value json;
-		if (!reader.parse(&*packet.first->data(), &*packet.first->data(), json))
-			return;
-
+		assert(reader.parse(&*packet.first->data(), &*packet.first->data(), json));
 		_handlers.push_back(thread([json, &packet, this]()
 		{
 			auto id = this_thread::get_id();
@@ -152,8 +153,16 @@ namespace yinyang{
 		}));
 	}
 
+	void Message::DelAyncThreadByID(thread::id id )
+	{
+		auto it = find_if(_handlers.begin(),_handlers.end(),
+			[id](thread &t){return t.get_id() == id;});
+		_handlers.erase(it);
+	}
+
 	void Message::Handle(Json::Value json, PipeIO::byte_buffer payload)
 	{
+		assert(json.size()>0);
 		auto type = json["type"].asString();
 		if (type =="callback")
 		{
@@ -183,15 +192,6 @@ namespace yinyang{
 			HandleLoadLibrary(req_id, path);
 		}
 		else throw exception ("unknow error.");
-	}
-
-	long Message::GetNextSize()
-	{
-		long ret = 0; 
-		auto chars = _io.read(4);
-		auto pchars = chars->data();
-		memcpy(&ret, pchars, 4);
-		return ret;
 	}
 
 	void Message::HandleLoadLibrary(long req_id, std::string path)
@@ -247,6 +247,7 @@ namespace yinyang{
 	yinyang::FunArgs Message::ExtractArgs(Json::Value args)
 	{
 		auto args_count = args.size();
+		assert(args_count>0);
 		FunArgs fun_args(args_count);
 
 		for (auto arg : args)
